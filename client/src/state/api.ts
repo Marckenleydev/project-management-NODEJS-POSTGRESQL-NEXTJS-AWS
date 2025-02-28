@@ -76,7 +76,7 @@ export interface Team {
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/",
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
   
   }),
 
