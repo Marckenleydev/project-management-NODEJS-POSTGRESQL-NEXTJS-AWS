@@ -70,7 +70,7 @@ const Navbar = () => {
           <div className="align-center flex h-9 w-9 justify-center">
            
               <Image
-                src="/p4.jpeg"
+                src={`https://projectmanagment-images.s3.us-east-1.amazonaws.com/p4.jpeg`}
                 alt= "User Profile Picture"
                 width={100}
                 height={50}
