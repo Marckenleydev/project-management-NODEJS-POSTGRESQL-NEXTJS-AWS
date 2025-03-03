@@ -6,6 +6,7 @@ import { setIsDarkMode, setIsSidebarCollapsed } from "@/state";
 
 import { signOut } from "aws-amplify/auth";
 import Image from "next/image";
+import { useGetAuthUserQuery } from "@/state/api";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -14,8 +15,19 @@ const Navbar = () => {
   );
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
+ const {data:currentUser} = useGetAuthUserQuery({})
+ const handleSignOut=async()=>{
+  try {
+    await signOut();
+  } catch (error) {
+    console.log("error signing out:", error)
+  }
+ }
+ if(!currentUser){
+  return null;
+ }
 
- 
+ const currentUserDetails = currentUser?.userDetails;
 
 
   return (
@@ -69,19 +81,24 @@ const Navbar = () => {
         <div className="hidden items-center justify-between md:flex">
           <div className="align-center flex h-9 w-9 justify-center">
            
+          {!!currentUserDetails?.profilePictureUrl ? (
               <Image
-                src={`https://projectmanagment-images.s3.us-east-1.amazonaws.com/p4.jpeg`}
-                alt= "User Profile Picture"
+                src={`https://pm-s3-images.s3.us-east-2.amazonaws.com/${currentUserDetails?.profilePictureUrl}`}
+                alt={currentUserDetails?.username || "User Profile Picture"}
                 width={100}
                 height={50}
                 className="h-full rounded-full object-cover"
               />
+            ) : (
+              <User className="h-6 w-6 cursor-pointer self-center rounded-full dark:text-white" />
+            )}
             
           </div>
           <span className="mx-3 text-gray-800 dark:text-white">
-            Marckenley
+          {currentUserDetails?.username}
           </span>
           <button
+          onClick={handleSignOut}
             className="hidden rounded bg-blue-400 px-4 py-2 text-xs font-bold text-white hover:bg-blue-500 md:block"
             
           >
