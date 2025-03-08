@@ -10,6 +10,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        "background": "#ffffff",  // White background
+        "border": "#e5e7eb",  // Gray border
+        "foreground": "#333333",  // Dark text color (you can adjust this as needed)
+        "muted": "#f3f4f6",
         white: "#ffffff",
         gray: {
           100: "#f3f4f6",

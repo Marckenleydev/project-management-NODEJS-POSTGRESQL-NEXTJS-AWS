@@ -145,6 +145,6 @@ body,
 
 /* Sonner Toast Styles */
 [data-close-button="true"] {
-  @apply  border-border text-foreground hover:bg-muted;
+  @apply bg-background border-border text-foreground hover:bg-muted;
 }
 
